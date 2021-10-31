@@ -13,7 +13,7 @@ def main_menu():
         row_width=1, resize_keyboard=True, one_time_keyboard=False
     )
     keyboard.add(
-        KeyboardButton("Change Theme & Color 🔵")
+        KeyboardButton("Mövzu və rəngi dəyşdirin")
     )
 
     return keyboard
