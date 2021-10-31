@@ -26,22 +26,22 @@ def in_start(message: Message):
 
         if not existing_checker(user_id=user_id):
             new_user(user_id=user_id, first_name=first_name, last_name=last_name)
-            bot.send_message(chat_id=user_id, text="*🔻 Select a theme:*", reply_markup=themes())
+            bot.send_message(chat_id=user_id, text="*Mövzu seçin:*", reply_markup=themes())
         else:
             checker = themeANDcolor(user_id)['theme']
             if checker is not None:
                 msg = bot.send_message(
                     chat_id=user_id,
-                    text="*🔺 INFORMATION:*\n"
-                         f"🔹 _Theme:_ `{themeANDcolor(user_id)['theme'].title()}`\n"
-                         f"🔹 _Color:_ `{themeANDcolor(user_id)['color']}`\n"
-                         "🔻 @hoosnick | @serenecorp\n\n"
-                         "*SEND YOUR CODE OR CHANGE THEME & COLOR:*",
+                    text="* Məlumat:*\n"
+                         f" _Mövzu:_ `{themeANDcolor(user_id)['theme'].title()}`\n"
+                         f" _Rəng:_ `{themeANDcolor(user_id)['color']}`\n"
+                         "Made by @aliyefh_sos\n\n"
+                         "*Codu göndərin rəngi və ya mövzunu dəyoşdirin.:*",
                     reply_markup=main_menu()
                 )
                 bot.register_next_step_handler(msg, in_text, msg.message_id)
             else:
-                bot.send_message(chat_id=user_id, text="*🔻 Select a theme:*", reply_markup=themes())
+                bot.send_message(chat_id=user_id, text="*Mövzu seçin:*", reply_markup=themes())
     except BaseException as b:
         print("START", b)  # pass
 
@@ -51,15 +51,15 @@ def in_text(message: Message, messageID = None):
     """When users write text"""
     user_id = message.from_user.id
     try:
-        if message.text == r"Change Theme & Color 🔵":
+        if message.text == r"Mövzunu və Rəngi dəyişdirin":
             bot.delete_message(chat_id=user_id, message_id=message.message_id)
-            msg = bot.send_message(chat_id=user_id, text="🔄 Loading...", reply_markup=remove_keyboard())
-            bot.send_message(chat_id = user_id, text = "*🔻 Select a theme:*", reply_markup = themes())
+            msg = bot.send_message(chat_id=user_id, text="Yüklənir...", reply_markup=remove_keyboard())
+            bot.send_message(chat_id = user_id, text = "*Mövzu seçin:*", reply_markup = themes())
             bot.delete_message(chat_id=user_id, message_id=msg.message_id)
         else:
             checker = themeANDcolor(user_id)['theme']
             if checker is not None:
-                msg = bot.send_message(chat_id=user_id, text="⏳ Please wait...", reply_markup=remove_keyboard())
+                msg = bot.send_message(chat_id=user_id, text="`Biraz gözləyin...`", reply_markup=remove_keyboard())
 
                 user_text = message.text
                 asyncio.run(carbonPhoto(user_text, user_id))
@@ -68,11 +68,11 @@ def in_text(message: Message, messageID = None):
                     bot.send_photo(
                         chat_id=user_id,
                         photo=pic,
-                        caption='*💥 @picodebot*',
+                        caption='*🇦🇿 @aliyefh_sos*',
                         reply_markup=main_menu())
                     bot.delete_message(chat_id=user_id, message_id=msg.message_id)
             else:
-                bot.send_message(chat_id=user_id, text="*🔻 Select a theme:*", reply_markup=themes())
+                bot.send_message(chat_id=user_id, text="*Mövzu seçin:*", reply_markup=themes())
     except BaseException as b:
         print("TEXT ERROR:", b)  # pass
     except RuntimeError:
@@ -109,7 +109,7 @@ def callback_query(call: CallbackQuery):
             bot.edit_message_text(
                 chat_id=user_id,
                 message_id=call.message.message_id,
-                text="*💙 Choose color:*",
+                text="* Rəng seçin:*",
                 reply_markup=colors()
             )
         elif call.data.startswith("color_"):
@@ -123,7 +123,7 @@ def callback_query(call: CallbackQuery):
             msg = bot.edit_message_text(
                 chat_id=user_id,
                 message_id=call.message.message_id,
-                text="*👨🏻‍💻 SEND YOUR CODE:*",
+                text="*👨🏻‍💻 Zəhmət olmasa codunuzu daxil edin:*",
                 reply_markup=None
             )
 
